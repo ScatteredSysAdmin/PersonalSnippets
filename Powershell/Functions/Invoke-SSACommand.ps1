@@ -5,7 +5,8 @@ function Invoke-SSACommand {
     .SYNOPSIS
     An alternative to Invoke-Command that has a built-in pre-check if the remote computer accepts WS-MAN
     .DESCRIPTION
-    An alternative to Invoke-Command that has a built-in pre-check if the remote computer accepts WS-MAN
+    Invoke-SSACommand will run a scriptblock multithreaded on all online computernames that you specify.
+    It was build to be able to run commands remotely without the need of first checking if we can connect to it.
     .PARAMETER ComputerName
     Name or names of the nodes to connect to
     .PARAMETER ScriptBlock
