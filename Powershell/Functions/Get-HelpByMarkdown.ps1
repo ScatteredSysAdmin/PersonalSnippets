@@ -114,7 +114,7 @@ try {
     }
 
     $full = Get-Help $Name -Full
-    Write-Verbose $full | ft
+    Write-Verbose $full | Format-Table
 
     @"
 
@@ -143,11 +143,17 @@ $($full.inputTypes.inputType.type.name)
 ## OUTPUTS
 
 $(
-    if($full.returnValues -ne $null) {$full.returnValues.returnValue[0].type.name}
+    if($null -ne $full.returnValues) {$full.returnValues.returnValue[0].type.name}
 )
 
 ## NOTES
-$(($full.alertSet.alert | Out-String).Trim())
+
+"@ + $( foreach ($noteline in (($full.alertSet.alert | Out-String).Trim() -split "`r`n")) {
+            @"
+$($noteline)  
+
+"@
+        }) + @"
 
 ## EXAMPLES
 "@ + $(foreach ($example in $full.examples.example) {
