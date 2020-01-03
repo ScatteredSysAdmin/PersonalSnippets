@@ -21,12 +21,20 @@ function Invoke-SSACommand {
     
     Connect to machine localhost using default credentials and return all processes
 
+        ComputerName  : localhost
+        isOnline      : True
+        scriptblock   : Get-Service
+        results       : {AdtAgent, ADWS, AeLookupSvc, ALG...}
+        ErrorOccurred : False
+    .EXAMPLE
+    PS C:\> $Data = Invoke-SSACommand -ComputerName remoteComputerName -ScriptBlock { get-service } 
+    PS C:\> $Data | Foreach-Object { $_.results | Where-Object {$_.Status -eq 'Running'} }
+    
+    Connect to machine localhost using default credentials and return all processes    
     .EXAMPLE
     PS C:\> Invoke-SSACommand -ComputerName localhost,127.0.0.1,$ENV:Computername -ScriptBlock { param($proc) get-process $proc } -Credential $cred -Argumentlist "svchost"
 
     Connect to 3 machine using specified credentials and run a scriptblock that accepts a parameter
-
-
     .NOTES
     Author:     Ron Peeters
     Date:       December 31, 2019
@@ -35,7 +43,7 @@ function Invoke-SSACommand {
     License:    ?
     Version:    0.9
     .LINK
-        https://scatteredsysadmin.com/??
+        https://scatteredsysadmin.com/posh/Invoke-SSACommand/
 
     #>
     [CmdletBinding(SupportsPaging = $false)]
