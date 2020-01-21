@@ -1,5 +1,6 @@
 -- Show All the Accounts based on where  
-SELECT [ADsPath]
+SELECT [ObjectId]
+      ,[ADsPath]
       ,[SamName]
       ,[Type]
 	    ,[PasswordCopyTime]
@@ -16,3 +17,5 @@ SELECT [ADsPath]
      ON m.SourceObjectId = o.ObjectId
 	WHERE o.ADSpath LIKE 'SOMETHING' AND
 	      m.PasswordCopyTime IS NOT NULL
+	      -- or specify specific object
+              AND o.ObjectId = '5E4E7708-1E0A-4422-A2CC-775C3DD5913C'
