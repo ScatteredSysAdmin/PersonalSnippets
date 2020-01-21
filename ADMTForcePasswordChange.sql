@@ -8,3 +8,11 @@ SELECT [ADsPath]
   where ADSpath LIKE 'SOMETHING'
   order by ADsPath
 
+-- Reset All the Accounts based on where  
+  UPDATE m
+   SET PasswordCopyTime = NULL
+   from [ADMT].[dbo].[MigratedObjects] m
+   JOIN [ADMT].[dbo].[Objects] o
+     ON m.SourceObjectId = o.ObjectId
+	WHERE o.ADSpath LIKE 'SOMETHING' AND
+	      m.PasswordCopyTime IS NOT NULL
